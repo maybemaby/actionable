@@ -3,8 +3,9 @@ import { WorkflowSlices } from "./WorkflowSlices";
 import { OnBlock, TriggerEvent, Workflow } from "@lib/types/workflow";
 
 export type OnSlice = {
-  on: OnBlock | null;
+  on?: OnBlock;
   onEventArray: (events: TriggerEvent[]) => void;
+  clearTriggers: () => void;
 };
 
 export const createOnSlice: StateCreator<WorkflowSlices, [], [], OnSlice> = (
@@ -15,5 +16,9 @@ export const createOnSlice: StateCreator<WorkflowSlices, [], [], OnSlice> = (
       on: events,
     }));
   },
-  on: null,
+  clearTriggers() {
+    set(() => ({
+      on: undefined,
+    }));
+  },
 });

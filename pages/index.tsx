@@ -1,9 +1,13 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useWorkflowStore } from "@stores/workflow/WorkflowStore";
+import { YamlPreview } from "@components/YamlPreview/YamlPreview";
+import { OnField } from "@components/OnField/OnField";
 
 const Home: NextPage = () => {
   const store = useWorkflowStore();
+
+  const { name, on } = store;
 
   return (
     <div>
@@ -23,7 +27,10 @@ const Home: NextPage = () => {
           value={store.name ?? ""}
           onChange={(e) => store.changeName(e.currentTarget.value)}
         />
+        <OnField />
       </section>
+
+      <YamlPreview given={{ name, on }} />
     </div>
   );
 };
