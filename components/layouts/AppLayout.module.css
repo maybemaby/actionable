@@ -1,0 +1,10 @@
+.page {
+  margin: 0 max(30px, 5vw);
+}
+
+.appbar {
+  display: flex;
+  gap: 20px;
+  padding: 30px 0;
+  align-items: center;
+}

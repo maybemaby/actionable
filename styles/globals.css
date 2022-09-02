@@ -1,9 +1,56 @@
+:root {
+  --base-font-size: 14px;
+  --base-subtitle-size: 24px;
+  --base-headline-size: 36px;
+  --white-base: #f1eeee;
+  --black-base: #090909;
+  --black-muted: #1a1919;
+
+  --violet-400: #818cf8;
+  --violet-600: #4f46e5;
+
+  --sp-1: 2px;
+  --sp-2: calc(var(--sp-1) * 2);
+  --sp-3: calc(var(--sp-1) * 3);
+
+  --color-text: var(--black-base);
+  --color-bg: var(--white-base);
+  --color-primary: var(--violet-400);
+  --color-primary-hover: var(--violet-600);
+}
+
+@media screen and (prefers-color-scheme: dark) {
+  :root {
+      --color-bg: var(--black-muted);
+      --color-text: var(--white-base);
+      --color-primary: var(--violet-600);
+      --color-primary-hover: var(--violet-400);
+  }
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  font-size: var(--base-font-size);
+}
+
+h1 {
+  font-size: var(--base-headline-size);
+  font-weight: 600;
+  margin: 0;
+}
+
+h2 {
+  font-size: 2rem;
 }
 
 a {
@@ -15,12 +62,16 @@ a {
   box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
+label {
+  font-size: var(--base-subtitle-size);
+  margin: var(--sp-3) 0;
+}
+
+input[type="text"] {
+  border: none;
+  padding: 7px 10px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  width: 100%;
+  margin: var(--sp-3) 0;
 }
