@@ -1,7 +1,10 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import { useWorkflowStore } from "@stores/workflow/WorkflowStore";
 
 const Home: NextPage = () => {
+  const store = useWorkflowStore();
+
   return (
     <div>
       <Head>
@@ -10,7 +13,17 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>Hello World</main>
+      <section>
+        <h2>Hello World</h2>
+        <label htmlFor="name">Workflow Name</label>
+        <input
+          id="name"
+          type="text"
+          placeholder="Enter a name for your workflow"
+          value={store.name ?? ""}
+          onChange={(e) => store.changeName(e.currentTarget.value)}
+        />
+      </section>
     </div>
   );
 };
