@@ -78,6 +78,11 @@ h2 {
   font-size: 2rem;
 }
 
+h3 {
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -147,17 +152,38 @@ input[type="text"] {
   background: var(--color-on-bg);
   color: var(--color-on-bg-text);
   animation: fade-down 300ms ease;
+  z-index: 45;
 }
 
 
 .combobox-option {
     display: flex;
     align-items: center;
-    font-size: 1.2rem;
+    font-size: var(--base-font-size);
     padding: 10px;
 }
 
 .combobox-option-focus {
   /* outline: 3px solid var(--violet-200); */
   background-color: var(--violet-200);
+}
+
+.listbox-input {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--color-on-bg);
+  padding: 8px 10px;
+}
+
+.listbox-input button {
+  background: transparent;
+  border: none;
+}
+
+@media screen and (min-width: 768px) {
+  .combobox-options {
+    font-size: 1.2rem;
+  }
 }

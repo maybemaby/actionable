@@ -75,7 +75,7 @@ export const createOnSlice: StateCreator<WorkflowSlices, [], [], OnSlice> = (
       };
     });
   },
-  addFilter(event: TriggerEvent, filter: OnBlockFilter, inputs?: string[]) {
+  setFilters(event: TriggerEvent, filter: OnBlockFilter, inputs?: string[]) {
     set((state) => {
       if (state.on && Object.keys(state.on).includes(event)) {
         const newOn = { ...state.on };

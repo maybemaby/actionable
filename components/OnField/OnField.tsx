@@ -6,13 +6,9 @@ import { TriggerEvent } from "@lib/types";
 import { useWorkflowStore } from "@stores/workflow/WorkflowStore";
 import { useState } from "react";
 import styles from "./OnField.module.css";
+import { EventFilter } from "./EventFilter";
 
-interface Filter {
-  name: string;
-  types: string[];
-}
-
-interface SelectOption {
+export interface SelectOption {
   label: string;
   value: TriggerEvent;
   filters?: string[];
@@ -190,9 +186,8 @@ export const OnField = () => {
 
       {selected.length > 0 && (
         <section>
-          {selected.map((selection) => (
-            <div key={selection.value}>{selection.label}</div>
-          ))}
+          <h3>Event Filtering</h3>
+          <EventFilter selectedEvents={selected} />
         </section>
       )}
     </>
