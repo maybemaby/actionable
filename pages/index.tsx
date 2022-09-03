@@ -3,11 +3,27 @@ import Head from "next/head";
 import { useWorkflowStore } from "@stores/workflow/WorkflowStore";
 import { YamlPreview } from "@components/YamlPreview/YamlPreview";
 import { OnField } from "@components/OnField/OnField";
+import { useState } from "react";
+
+interface FieldsTouched {
+  name: boolean;
+  on: boolean;
+}
 
 const Home: NextPage = () => {
   const store = useWorkflowStore();
+  const [touched, setTouched] = useState<FieldsTouched>({
+    name: false,
+    on: false,
+  });
 
   const { name, on } = store;
+
+  const touchField = (key: keyof FieldsTouched) => {
+    const updated = { ...touched };
+    updated[key] = true;
+    setTouched(updated);
+  };
 
   return (
     <div>
@@ -18,7 +34,7 @@ const Home: NextPage = () => {
       </Head>
 
       <section>
-        <h2>Hello World</h2>
+        <h2>Let&#39;s get started</h2>
         <label htmlFor="name">Workflow Name</label>
         <input
           id="name"
@@ -26,8 +42,9 @@ const Home: NextPage = () => {
           placeholder="Enter a name for your workflow"
           value={store.name ?? ""}
           onChange={(e) => store.changeName(e.currentTarget.value)}
+          onChangeCapture={() => touchField("name")}
         />
-        <OnField />
+        {touched.name && store.name !== null && <OnField />}
       </section>
 
       <YamlPreview given={{ name, on }} />

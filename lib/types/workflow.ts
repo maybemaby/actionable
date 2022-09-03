@@ -36,10 +36,22 @@ export type TriggerEvent =
   | "workflow_dispatch"
   | "workflow_run";
 
+export type OnBlockFilter =
+  | "branches"
+  | "branches-ignore"
+  | "paths"
+  | "paths-ignore"
+  | "tags"
+  | "tags-ignore";
+
+export type TriggerConditions = {
+  [key in OnBlockFilter | "types"]?: string[];
+};
+
 export type OnBlock =
   | TriggerEvent[]
   | {
-      [key in TriggerEvent]: null | any;
+      [key in TriggerEvent]?: null | TriggerConditions;
     };
 
 export interface Workflow {
