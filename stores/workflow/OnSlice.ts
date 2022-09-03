@@ -50,7 +50,7 @@ export const createOnSlice: StateCreator<WorkflowSlices, [], [], OnSlice> = (
         const newOn = { ...state.on };
         const existingTypes = newOn[event]?.types;
         if (existingTypes) {
-          if (existingTypes.length > eventTypes.length) {
+          if (existingTypes.length < eventTypes.length) {
             // Get a set of unique new types and existing types
             const union = new Set([...existingTypes, ...eventTypes]);
             newOn[event] = {
