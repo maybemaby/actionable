@@ -48,11 +48,9 @@ export type TriggerConditions = {
   [key in OnBlockFilter | "types"]?: string[];
 };
 
-export type OnBlock =
-  | TriggerEvent[]
-  | {
-      [key in TriggerEvent]?: null | TriggerConditions;
-    };
+export type OnBlock = {
+  [key in TriggerEvent]?: null | TriggerConditions;
+};
 
 export interface Workflow {
   name: string;

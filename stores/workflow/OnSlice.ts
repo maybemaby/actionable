@@ -11,16 +11,21 @@ export type OnSlice = {
   on?: OnBlock;
   onEventArray: (events: TriggerEvent[]) => void;
   clearTriggers: () => void;
+  setTypes: (event: TriggerEvent, eventTypes: string[]) => void;
 };
 
 export const createOnSlice: StateCreator<WorkflowSlices, [], [], OnSlice> = (
   set
 ) => ({
   onEventArray(events) {
-    set(() => {
+    set((state) => {
       const update: { [key in TriggerEvent]?: TriggerConditions | null } = {};
       for (let event of events) {
-        update[event] = null;
+        if ((state.on && !state.on[event]) || !state.on) {
+          update[event] = null;
+        } else if (state.on) {
+          update[event] = state.on[event];
+        }
       }
 
       return {
@@ -33,22 +38,33 @@ export const createOnSlice: StateCreator<WorkflowSlices, [], [], OnSlice> = (
       on: undefined,
     }));
   },
-  addType(event: TriggerEvent, eventType: string) {
+  setTypes(event: TriggerEvent, eventTypes: string[]) {
     set((state) => {
-      if (
-        state.on &&
-        Object.keys(state.on).includes(event) &&
-        !Array.isArray(state.on)
-      ) {
+      if (eventTypes.length === 0 && state.on) {
+        const newOn = { ...state.on };
+        newOn[event] = null;
+        return { on: newOn };
+      }
+
+      if (state.on && Object.keys(state.on).includes(event)) {
         const newOn = { ...state.on };
         const existingTypes = newOn[event]?.types;
         if (existingTypes) {
-          newOn[event] = {
-            ...newOn[event],
-            types: [...existingTypes, eventType],
-          };
+          if (existingTypes.length > eventTypes.length) {
+            // Get a set of unique new types and existing types
+            const union = new Set([...existingTypes, ...eventTypes]);
+            newOn[event] = {
+              ...newOn[event],
+              types: Array.from(union),
+            };
+          } else {
+            newOn[event] = {
+              ...newOn[event],
+              types: eventTypes,
+            };
+          }
         } else {
-          newOn[event] = { ...newOn[event], types: [eventType] };
+          newOn[event] = { ...newOn[event], types: [...eventTypes] };
         }
         return {
           on: newOn,
@@ -61,11 +77,7 @@ export const createOnSlice: StateCreator<WorkflowSlices, [], [], OnSlice> = (
   },
   addFilter(event: TriggerEvent, filter: OnBlockFilter, inputs?: string[]) {
     set((state) => {
-      if (
-        state.on &&
-        Object.keys(state.on).includes(event) &&
-        !Array.isArray(state.on)
-      ) {
+      if (state.on && Object.keys(state.on).includes(event)) {
         const newOn = { ...state.on };
         const existingFilter = newOn[event]?.[filter];
         if (typeof newOn[event]?.[filter] !== "undefined" && inputs) {
