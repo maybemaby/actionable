@@ -95,7 +95,7 @@ export type Step = {
 export type Job = {
   name?: string;
   id?: string;
-  "runs-on"?: RunsOnOptions;
+  "runs-on"?: RunsOnOptions[] | RunsOnOptions;
   needs?: string[] | string;
   if?: string;
   steps?: Step[];

@@ -1,0 +1,27 @@
+.listbox {
+  width: fit-content;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.input {
+  padding: 5px;
+  border-radius: 5px;
+  width: 150px;
+}
+
+.label {
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+
+.options {
+  width: 150px;
+  right: 0;
+}

@@ -23,6 +23,10 @@ export const JobsField = () => {
     store.updateJobKeys(jobKeys);
   }, [jobKeys]);
 
+  useEffect(() => {
+    if (store.jobs) setJobKeys(Object.keys(store.jobs));
+  }, [store.jobs]);
+
   return (
     <section className={styles.field}>
       <h3 className={styles.header}>Jobs</h3>
