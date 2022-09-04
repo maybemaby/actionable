@@ -5,6 +5,7 @@ import { Portal } from "@components/Portal/Portal";
 import styles from "./Drawer.module.css";
 import { ReactNode } from "react";
 
+// Map keys from props.position to styles
 const posMap = {
   right: styles.right,
   left: styles.left,
@@ -15,7 +16,9 @@ const posMap = {
 interface DrawerProps {
   position: "top" | "right" | "bottom" | "left";
   children: ReactNode;
+  // Optionally replace how the button is rendered. Default to hamburger icon
   buttonAs?: ReactNode;
+  // Optionally add a different label to bottom of the open button icon.
   buttonLabel?: string;
 }
 

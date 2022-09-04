@@ -1,10 +1,22 @@
 import React from "react";
+import dynamic from "next/dynamic";
 import { BiGitMerge } from "react-icons/bi";
 import { Drawer } from "@components/Drawer/Drawer";
 import { BsCodeSlash } from "react-icons/bs";
-import { YamlPreview } from "@components/YamlPreview/YamlPreview";
 import { useWorkflowStore } from "@stores/workflow/WorkflowStore";
 import styles from "./AppLayout.module.css";
+
+// Dynamically load the YamlPreview since it's not vital on first load.
+const DynamicYaml = dynamic(
+  () =>
+    import("../../components/YamlPreview/YamlPreview").then(
+      (mod) => mod.YamlPreview
+    ),
+  {
+    ssr: false,
+    loading: () => <pre>Loading</pre>,
+  }
+);
 
 export const AppLayout = ({ children }: { children: React.ReactNode }) => {
   const { name, on, jobs } = useWorkflowStore();
@@ -21,7 +33,7 @@ export const AppLayout = ({ children }: { children: React.ReactNode }) => {
           buttonAs={<BsCodeSlash size={30} />}
           buttonLabel={"Preview Workflow"}
         >
-          <YamlPreview given={{ on, name, jobs }} />
+          <DynamicYaml given={{ on, name, jobs }} />
         </Drawer>
       </header>
       <main className={styles.page}>{children}</main>

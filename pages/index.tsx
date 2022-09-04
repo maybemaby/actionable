@@ -1,7 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useWorkflowStore } from "@stores/workflow/WorkflowStore";
-import { YamlPreview } from "@components/YamlPreview/YamlPreview";
 import { OnField } from "@components/OnField/OnField";
 import { JobsField } from "@components/JobsField/JobsField";
 import { useState } from "react";
@@ -49,7 +48,7 @@ const Home: NextPage = () => {
       {touched.name && store.name !== null && <OnField />}
       {touched.on && <JobsField />}
 
-      <YamlPreview given={{ name, on, jobs }} />
+      {/* <YamlPreview given={{ name, on, jobs }} /> */}
     </div>
   );
 };
