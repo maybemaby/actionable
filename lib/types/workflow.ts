@@ -102,6 +102,7 @@ export type Job = {
   steps?: Step[];
   strategy?: StepStrategy;
   "continue-on-error"?: boolean;
+  "timeout-minutes"?: number;
 };
 
 export interface Workflow {

@@ -5,6 +5,11 @@
 
 .label {
   margin: 0;
-  font-size: 1.2rem !important;
+  font-size: 1.1rem !important;
 }
 
+@media screen and (min-width: 768px) {
+  .label {
+    font-size: 1.2rem !important;
+  }
+}

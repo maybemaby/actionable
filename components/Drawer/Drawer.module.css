@@ -39,6 +39,13 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
+  transition: all 200ms ease-in-out;
+  box-shadow: 0 0 2px var(--rose-500-15);
+}
+
+.openBtn:hover {
+  box-shadow: 0 0 5px var(--rose-500);
+
 }
 
 .openBtn:after {
@@ -46,6 +53,12 @@
   content: attr(data-label);
   transition: all 100ms ease-in-out;
   transform: translateY(120%);
+}
+
+@media screen and (min-width: 768px) {
+  .openBtn:after {
+    transform: translateY(170%);
+  }
 }
 
 .openBtn:hover::after, .openBtn:focus::after {

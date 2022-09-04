@@ -11,6 +11,7 @@ export type JobsSlice = {
   removeJob: (name: string) => void;
   setRunsOn: (name: string, selection: RunsOnOptions[] | RunsOnOptions) => void;
   setContinueOnErr: (name: string, value: boolean) => void;
+  setTimeoutMinutes: (name: string, value?: number) => void;
 };
 
 export const createJobsSlice: StateCreator<
@@ -92,6 +93,24 @@ export const createJobsSlice: StateCreator<
               ...state.jobs[name],
               // Set undefined instead of false since that will hide the key entirely
               "continue-on-error": val === true ? true : undefined,
+            },
+          },
+        };
+      } else {
+        return { ...state };
+      }
+    });
+  },
+  setTimeoutMinutes(name, value) {
+    set((state) => {
+      if (state.jobs?.[name]) {
+        return {
+          ...state,
+          jobs: {
+            ...state.jobs,
+            [name]: {
+              ...state.jobs[name],
+              "timeout-miutes": value,
             },
           },
         };

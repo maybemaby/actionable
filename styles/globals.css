@@ -16,6 +16,7 @@
   --grey-800: #27272a;
 
   --rose-500: #f43f5e;
+  --rose-500-15: #f43f5d26;
 
   --violet-100: #e0e7ff;
   --violet-200: #c7d2fe;
@@ -128,6 +129,13 @@ input[type="text"] {
   font-size: 1.2rem;
   width: 100%;
   margin: var(--sp-3) 0;
+}
+
+input[type="number"] {
+  border: none;
+  padding: 7px 10px;
+  width: 100px;
+  border-radius: 10px;
 }
 
 .row {
