@@ -22,8 +22,34 @@
   position: absolute;
   width: 100%;
   top: 0;
-  bottom: 0;
   background-color: rgba(27, 26, 26, 0.646);
+  height: 200vh;
+}
+
+.openBtn {
+  background: transparent;
+  border: 2px solid var(--rose-500);
+  color: var(--color-text);
+  z-index: 1;
+  padding: 3px;
+  margin: 0;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.openBtn:after {
+  position: absolute;
+  content: attr(data-label);
+  transition: all 100ms ease-in-out;
+  transform: translateY(120%);
+}
+
+.openBtn:hover::after, .openBtn:focus::after {
+  opacity: 1;
 }
 
 .container {
@@ -35,7 +61,7 @@
 
 .closeBtn {
   position: absolute;
-  padding: 10px;
+  padding: 5px;
   background: transparent;
   border: none;
   color: var(--color-text);
@@ -52,6 +78,7 @@
   right: 0;
   height: 100%;
   animation: slide-left 100ms linear;
+  border-left: 2px solid var(--color-primary);
 }
 
 .left {

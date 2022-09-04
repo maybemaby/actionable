@@ -1,9 +1,9 @@
 import { Popover } from "@headlessui/react";
 import { AiOutlineClose } from "react-icons/ai";
+import { GiHamburgerMenu } from "react-icons/gi";
 import { Portal } from "@components/Portal/Portal";
 import styles from "./Drawer.module.css";
-import { Fragment, ReactNode } from "react";
-import { Transition } from "@headlessui/react";
+import { ReactNode } from "react";
 
 const posMap = {
   right: styles.right,
@@ -15,14 +15,26 @@ const posMap = {
 interface DrawerProps {
   position: "top" | "right" | "bottom" | "left";
   children: ReactNode;
+  buttonAs?: ReactNode;
+  buttonLabel?: string;
 }
 
-export const Drawer = ({ position, children }: DrawerProps) => {
+export const Drawer = ({
+  position,
+  children,
+  buttonAs,
+  buttonLabel,
+}: DrawerProps) => {
   return (
     <Popover>
       {({ open }) => (
         <>
-          <Popover.Button>Open</Popover.Button>
+          <Popover.Button
+            className={styles.openBtn}
+            data-label={buttonLabel ?? "Open"}
+          >
+            {buttonAs ?? <GiHamburgerMenu size={30} />}
+          </Popover.Button>
           {open && (
             <Portal
               className={styles.overlay}

@@ -123,6 +123,12 @@ input[type="text"] {
   margin: var(--sp-3) 0;
 }
 
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .icon-btn {
   display: flex;
   flex-direction: row;
