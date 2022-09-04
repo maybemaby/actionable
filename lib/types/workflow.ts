@@ -44,6 +44,25 @@ export type OnBlockFilter =
   | "tags"
   | "tags-ignore";
 
+export type RunsOnOptions =
+  | "windows-latest"
+  | "windows-2019"
+  | "ubuntu-22.04"
+  | "ubuntu-latest"
+  | "ubuntu-20.04"
+  | "ubuntu-18.04"
+  | "macos-12"
+  | "macos-11"
+  | "macos-10.15";
+
+type CommonActions =
+  | "actions/checkout@v3"
+  | "actions/setup-node@v3"
+  | "actions/cache@v3"
+  | "shivammathur/setup-php@v2"
+  | "actions/setup-python@v4"
+  | "actions/setup-go@v3";
+
 export type TriggerConditions = {
   [key in OnBlockFilter | "types"]?: string[];
 };
@@ -52,7 +71,40 @@ export type OnBlock = {
   [key in TriggerEvent]?: null | TriggerConditions;
 };
 
+type StepWith = {
+  [key: string]: string;
+};
+
+type StepStrategy = {
+  "fail-fast"?: boolean;
+  "max-parallel"?: number;
+  matrix: Record<string, string[]>;
+};
+
+type WithKeys = "args" | "entrypoint";
+
+export type Step = {
+  uses?: CommonActions | string;
+  with?: Record<WithKeys | string, string>;
+  run: string;
+  env?: Record<string, string>;
+  "continue-on-error"?: boolean;
+  "timeout-minutes"?: number;
+};
+
+export type Job = {
+  name?: string;
+  id?: string;
+  "runs-on"?: RunsOnOptions;
+  needs?: string[] | string;
+  if?: string;
+  steps?: Step[];
+  strategy?: StepStrategy;
+  "continue-on-error"?: boolean;
+};
+
 export interface Workflow {
   name: string;
   on: OnBlock;
+  jobs: { [key: string]: Job };
 }
