@@ -2,7 +2,6 @@ import { Listbox } from "@headlessui/react";
 import { RunsOnOptions } from "@lib/types/workflow";
 import { useWorkflowStore } from "@stores/workflow/WorkflowStore";
 import { Fragment, useMemo } from "react";
-import { useState } from "react";
 import { BsCheck } from "react-icons/bs";
 import { MdExpandMore } from "react-icons/md";
 import styles from "./RunsOn.module.css";
@@ -19,7 +18,13 @@ const options: RunsOnOptions[] = [
   "windows-2019",
 ];
 
-export const RunsOn = ({ keyName }: { keyName: string }) => {
+export const RunsOn = ({
+  keyName,
+  className,
+}: {
+  keyName: string;
+  className?: string;
+}) => {
   const store = useWorkflowStore();
   const selectedLength = useMemo(() => {
     return store?.jobs?.[keyName]["runs-on"]?.length ?? 0;
@@ -37,7 +42,7 @@ export const RunsOn = ({ keyName }: { keyName: string }) => {
       className={`combobox pop-in ${styles.listbox}`}
       multiple
     >
-      <div className={styles.container}>
+      <div className={`${className} ${styles.container}`}>
         <Listbox.Label className={styles.label}>
           Platforms to run workflow on:
         </Listbox.Label>

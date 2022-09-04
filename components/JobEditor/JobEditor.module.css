@@ -26,3 +26,11 @@
 .deleteBtn:hover {
   color: var(--color-primary-hover)
 }
+
+.py2 {
+  margin: var(--sp-2) 0;
+}
+
+.py4 {
+  margin: var(--sp-4) -0;
+}

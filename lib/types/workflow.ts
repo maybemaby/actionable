@@ -84,6 +84,7 @@ type StepStrategy = {
 type WithKeys = "args" | "entrypoint";
 
 export type Step = {
+  name: string;
   uses?: CommonActions | string;
   with?: Record<WithKeys | string, string>;
   run: string;

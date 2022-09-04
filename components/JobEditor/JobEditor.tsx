@@ -3,6 +3,7 @@ import { Job } from "@lib/types/workflow";
 import { useWorkflowStore } from "@stores/workflow/WorkflowStore";
 import { RunsOn } from "./RunsOn";
 import styles from "./JobEditor.module.css";
+import { ContinueOnErr } from "@components/OnField/ContinueOnErr";
 
 export const JobEditor = ({ job, keyName }: { job: Job; keyName: string }) => {
   const store = useWorkflowStore();
@@ -19,7 +20,8 @@ export const JobEditor = ({ job, keyName }: { job: Job; keyName: string }) => {
           Delete
         </button>
       </div>
-      <RunsOn keyName={keyName} />
+      <ContinueOnErr className={styles.py4} keyName={keyName} />
+      <RunsOn className={styles.py4} keyName={keyName} />
     </div>
   );
 };

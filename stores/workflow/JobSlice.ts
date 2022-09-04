@@ -10,6 +10,7 @@ export type JobsSlice = {
   setJobValue: (name: string, key: SimpleKeyValues, value: string) => void;
   removeJob: (name: string) => void;
   setRunsOn: (name: string, selection: RunsOnOptions[] | RunsOnOptions) => void;
+  setContinueOnErr: (name: string, value: boolean) => void;
 };
 
 export const createJobsSlice: StateCreator<
@@ -18,6 +19,7 @@ export const createJobsSlice: StateCreator<
   [],
   JobsSlice
 > = (set) => ({
+  // adds new keys on top of existing keys
   updateJobKeys(names) {
     set((state) => {
       if (names.length <= 0) {
@@ -36,6 +38,7 @@ export const createJobsSlice: StateCreator<
       };
     });
   },
+  // removes key from state.jobs
   removeJob(name: string) {
     set((state) => {
       const newJobs = { ...state.jobs };
@@ -46,6 +49,7 @@ export const createJobsSlice: StateCreator<
       };
     });
   },
+  // For keys within state.jobs that only require a simple key e.g name and id
   setJobValue(name, key, value) {
     set((state) => {
       if (state.jobs?.[name]) {
@@ -58,6 +62,7 @@ export const createJobsSlice: StateCreator<
       }
     });
   },
+  // Just sets jobs.[jobname]."runs-on" with selection
   setRunsOn(name, selection) {
     set((state) => {
       if (state.jobs?.[name]) {
@@ -68,6 +73,25 @@ export const createJobsSlice: StateCreator<
             [name]: {
               ...state.jobs[name],
               "runs-on": selection,
+            },
+          },
+        };
+      } else {
+        return { ...state };
+      }
+    });
+  },
+  setContinueOnErr(name, val) {
+    set((state) => {
+      if (state.jobs?.[name]) {
+        return {
+          ...state,
+          jobs: {
+            ...state.jobs,
+            [name]: {
+              ...state.jobs[name],
+              // Set undefined instead of false since that will hide the key entirely
+              "continue-on-error": val === true ? true : undefined,
             },
           },
         };
