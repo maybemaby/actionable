@@ -30,6 +30,10 @@
   box-shadow: inset 0px 0px 5px var(--color-primary-hover);
 }
 
+.inputText[type="text"]:focus-within {
+  box-shadow: inset 0px 0px 5px var(--color-primary);
+}
+
 .inputSubmit {
   background: var(--color-primary-hover);
   border: none;
@@ -42,4 +46,10 @@
 
 .inputSubmit:hover {
   background: var(--color-primary);
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }

@@ -10,4 +10,37 @@
   padding: 10px;
   display: flex;
   justify-content: center;
+  font-size: 1.2rem;
+}
+
+.twoCol {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+}
+
+.twoCol input {
+  color: var(--color-on-bg);
+  background: none;
+  outline: none;
+  box-shadow: inset 0px 0px 5px var(--color-primary-hover);
+  border-radius: 0px;
+  margin: 0;
+  padding: 10px 20px;
+}
+
+.twoCol input:focus-within {
+  box-shadow: inset 0px 0px 5px var(--color-primary);
+}
+
+.twoCol label {
+  font-size: var(--base-font-size);
+  border: 1px solid var(--grey-500);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
 }

@@ -34,10 +34,16 @@ export const StepsEditor = ({ jobKey }: Props) => {
           Add Step
         </button>
       </form>
-      <div>
+      <div className={styles.steps}>
         {typeof store?.jobs?.[jobKey]?.steps !== "undefined" &&
           store.jobs[jobKey].steps?.map((step) => {
-            return <IndividualStep key={step.name} stepName={step.name} />;
+            return (
+              <IndividualStep
+                key={step.name}
+                jobKey={jobKey}
+                stepName={step.name}
+              />
+            );
           })}
       </div>
     </div>
