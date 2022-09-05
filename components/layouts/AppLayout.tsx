@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import dynamic from "next/dynamic";
 import { BiGitMerge } from "react-icons/bi";
 import { Drawer } from "@components/Drawer/Drawer";
@@ -19,7 +19,11 @@ const DynamicYaml = dynamic(
 );
 
 export const AppLayout = ({ children }: { children: React.ReactNode }) => {
-  const { name, on, jobs } = useWorkflowStore();
+  const { name, on, jobs, steps, buildJobs } = useWorkflowStore();
+
+  useEffect(() => {
+    buildJobs();
+  }, [steps]);
 
   return (
     <>
