@@ -5,6 +5,7 @@ import { RunsOn } from "./RunsOn";
 import styles from "./JobEditor.module.css";
 import { ContinueOnErr } from "@components/OnField/ContinueOnErr";
 import { TimeoutMinutes } from "./TimeoutMinutes";
+import { StepsEditor } from "@components/StepsEditor/StepsEditor";
 
 export const JobEditor = ({ job, keyName }: { job: Job; keyName: string }) => {
   const store = useWorkflowStore();
@@ -21,11 +22,14 @@ export const JobEditor = ({ job, keyName }: { job: Job; keyName: string }) => {
           Delete
         </button>
       </div>
-      <div className={`row gap-20 ${styles.py4} ${styles.forceCol}`}>
-        <ContinueOnErr keyName={keyName} />
-        <TimeoutMinutes keyName={keyName} />
+      <div className={styles.editing}>
+        <div className={`row gap-20 ${styles.py4} ${styles.forceCol}`}>
+          <ContinueOnErr keyName={keyName} />
+          <TimeoutMinutes keyName={keyName} />
+        </div>
+        <RunsOn className={styles.py6} keyName={keyName} />
+        <StepsEditor jobKey={keyName} />
       </div>
-      <RunsOn className={styles.py6} keyName={keyName} />
     </div>
   );
 };

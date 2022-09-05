@@ -31,6 +31,10 @@
   color: var(--color-primary-hover)
 }
 
+.editing {
+  padding: 20px 10px;
+}
+
 .py2 {
   margin: var(--sp-2) 0;
 }
