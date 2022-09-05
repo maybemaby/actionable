@@ -33,7 +33,9 @@ export const AppLayout = ({ children }: { children: React.ReactNode }) => {
           buttonAs={<BsCodeSlash size={30} />}
           buttonLabel={"Preview Workflow"}
         >
-          <DynamicYaml given={{ on, name, jobs }} />
+          <div className={styles.preview}>
+            <DynamicYaml given={{ name, on, jobs }} />
+          </div>
         </Drawer>
       </header>
       <main className={styles.page}>{children}</main>
