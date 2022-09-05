@@ -11,6 +11,13 @@ export type StepSlice = {
   createStep: (jobName: string, stepName: string) => void;
   removeStep: (jobName: string, stepName: string) => void;
   changeUses: (jobName: string, stepName: string, uses: string) => void;
+  changeRun: (jobName: string, stepName: string, uses: string) => void;
+  setStepSimpleKv: (
+    jobName: string,
+    stepName: string,
+    key: keyof Step,
+    value: string
+  ) => void;
 };
 
 export const createStepSlice: StateCreator<
@@ -18,7 +25,7 @@ export const createStepSlice: StateCreator<
   [],
   [],
   StepSlice
-> = (set) => ({
+> = (set, get) => ({
   steps: [],
   createStep(jobName, stepName) {
     set((state) => {
@@ -42,15 +49,22 @@ export const createStepSlice: StateCreator<
     });
   },
   changeUses(jobName, stepName, uses) {
+    get().setStepSimpleKv(jobName, stepName, "uses", uses);
+  },
+  changeRun(jobName, stepName, run) {
+    get().setStepSimpleKv(jobName, stepName, "run", run);
+  },
+  // Wrapper for setting simple string key values in steps
+  setStepSimpleKv(jobName, stepName, key, value) {
     set((state) => {
       return {
         ...state,
         steps: state.steps.map((step) => {
           if (step.jobKey === jobName && step.name === stepName) {
-            if (uses.length > 0) {
-              return { ...step, uses: uses };
+            if (value.length > 0) {
+              return { ...step, [key]: value };
             }
-            return { ...step, uses: undefined };
+            return { ...step, [key]: undefined };
           }
           return { ...step };
         }),

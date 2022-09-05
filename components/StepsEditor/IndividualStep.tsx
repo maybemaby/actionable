@@ -21,11 +21,21 @@ export const IndividualStep = ({ stepName, jobKey }: Props) => {
     <div className={styles.container}>
       <div className={styles.header}>{stepName}</div>
       <div className={styles.twoCol}>
-        <label>Uses</label>
+        <label>Pre-existing workflow to use (Optional)</label>
         <input
           type="text"
           value={step?.uses ?? ""}
           onChange={(e) => store.changeUses(jobKey, stepName, e.target.value)}
+          placeholder="Example: actions/checkout@v3"
+        ></input>
+      </div>
+      <div className={styles.twoCol}>
+        <label>Run Command (Optional)</label>
+        <input
+          type="text"
+          value={step?.run ?? ""}
+          onChange={(e) => store.changeRun(jobKey, stepName, e.target.value)}
+          placeholder="Example: npm run test"
         ></input>
       </div>
     </div>
