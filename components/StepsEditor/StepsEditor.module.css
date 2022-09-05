@@ -9,7 +9,7 @@
 .header {
   padding: 7px 20px;
   font-size: 1.2rem;
-  box-shadow: inset 0px 0px 5px var(--color-primary-hover);
+  border-bottom: 2px solid var(--color-primary);
 }
 
 .inputRow {
@@ -23,9 +23,11 @@
   flex-grow: 1;
   color: inherit;
   border-radius: 0px;
-  padding: 5px 20px;
+  padding: 7px 20px;
+  margin: 0;
   outline: none;
   font-size: var(--base-font-size);
+  box-shadow: inset 0px 0px 5px var(--color-primary-hover);
 }
 
 .inputSubmit {
@@ -33,7 +35,7 @@
   border: none;
   flex-basis: 1;
   flex-grow: 2;
-  padding: 0 30px;
+  padding: 5px 30px;
   transition: all 200ms linear;
   color: var(--color-on-primary);
 }

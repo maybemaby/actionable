@@ -25,13 +25,13 @@ export const EventFilter = ({ selectedEvents }: EventFilterProps) => {
     if (store.on?.[chosen.value]) {
       setSelectedTypes(store.on[chosen.value]?.types);
     }
-  }, [chosen]);
+  }, [chosen.value, store.on]);
 
   useEffect(() => {
     if (selectedTypes) {
       store.setTypes(chosen.value, selectedTypes);
     }
-  }, [selectedTypes]);
+  }, [selectedTypes, chosen.value]);
 
   return (
     <div className={styles.container}>
