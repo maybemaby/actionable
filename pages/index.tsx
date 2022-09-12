@@ -2,8 +2,18 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { useWorkflowStore } from "@stores/workflow/WorkflowStore";
 import { OnField } from "@components/OnField/OnField";
-import { JobsField } from "@components/JobsField/JobsField";
 import { useState } from "react";
+import dynamic from "next/dynamic";
+import { useHasHydrated } from "@hooks/useHasHydrated";
+
+// Doesn't really have a performance benefit, but kept getting
+// UI/Server mismatch errors
+const DynamicJobsField = dynamic(
+  () => import("@components/JobsField/JobsField").then((mod) => mod.JobsField),
+  {
+    ssr: false,
+  }
+);
 
 interface FieldsTouched {
   name: boolean;
@@ -17,13 +27,13 @@ const Home: NextPage = () => {
     on: true,
   });
 
-  const { name, on, jobs } = store;
-
   const touchField = (key: keyof FieldsTouched) => {
     const updated = { ...touched };
     updated[key] = true;
     setTouched(updated);
   };
+
+  const hasHydrated = useHasHydrated();
 
   return (
     <div>
@@ -37,6 +47,16 @@ const Home: NextPage = () => {
       </Head>
 
       <section>
+        <p className="intro">
+          Generate workflows for Github&#39;s CI/CD platform{" "}
+          <a
+            href="https://github.com/features/actions"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Github Actions
+          </a>
+        </p>
         <h2>Let&#39;s get started</h2>
         <label htmlFor="name">Workflow Name</label>
         <input
@@ -48,10 +68,9 @@ const Home: NextPage = () => {
           onChangeCapture={() => touchField("name")}
         />
       </section>
-      {touched.name && store.name !== null && <OnField />}
-      {touched.on && <JobsField />}
-
-      {/* <YamlPreview given={{ name, on, jobs }} /> */}
+      {(hasHydrated && touched.name && <OnField />) ||
+        (hasHydrated && store.name !== null && <OnField />)}
+      {touched.on && <DynamicJobsField />}
     </div>
   );
 };

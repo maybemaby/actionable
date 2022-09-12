@@ -13,6 +13,7 @@
   --grey-300: #d4d4d8;
   --grey-400: #a1a1aa;
   --grey-500: #71717a;
+  --grey-600: #3E4C59;
   --grey-800: #27272a;
 
   --rose-500: #f43f5e;
@@ -35,9 +36,10 @@
   --color-bg: var(--white-base);
   --color-on-bg: white;
   --color-on-bg-text: var(--black-base);
-  --color-primary: var(--violet-400);
-  --color-primary-hover: var(--violet-600);
+  --color-primary: var(--violet-600);
+  --color-primary-hover: var(--violet-400);
   --color-on-primary: var(--white-base);
+  --modal-bg: var(--grey-300);
 }
 
 @keyframes fade-down {
@@ -61,6 +63,7 @@
       --color-primary: var(--violet-600);
       --color-primary-hover: var(--violet-400);
       --color-on-primary: var(--color-text);
+      --modal-bg: var(--grey-600);
   }
 }
 
@@ -100,6 +103,11 @@ h3 {
   font-weight: 500;
 }
 
+hr {
+  border-top: 2px solid var(--color-text);
+  width: 100%;
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -107,6 +115,18 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+p.intro {
+  font-size: var(--base-subtitle-size);
+  margin: 50px auto;
+  width: fit-content;
+}
+
+p.intro a {
+  text-decoration: underline;
+  font-weight: 500;
+  color: var(--color-primary);
 }
 
 button:hover {
@@ -172,6 +192,13 @@ input[type="number"] {
 
 .btn-primary:hover {
   background-color: var(--color-primary-hover);
+}
+
+.btn-secondary {
+  padding: 10px 20px;
+  background-color: transparent;
+  color: var(--color-primary);
+  border: none;
 }
 
 .combobox {

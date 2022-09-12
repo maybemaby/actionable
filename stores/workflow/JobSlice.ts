@@ -12,11 +12,12 @@ export type JobsSlice = {
   setRunsOn: (name: string, selection: RunsOnOptions[] | RunsOnOptions) => void;
   setContinueOnErr: (name: string, value: boolean) => void;
   setTimeoutMinutes: (name: string, value?: number) => void;
+  buildJobs: () => void;
 };
 
 export const createJobsSlice: StateCreator<
   WorkflowSlices,
-  [],
+  [["zustand/persist", unknown]],
   [],
   JobsSlice
 > = (set) => ({
@@ -117,6 +118,23 @@ export const createJobsSlice: StateCreator<
       } else {
         return { ...state };
       }
+    });
+  },
+  buildJobs() {
+    set((state) => {
+      const newState = { ...state };
+      if (newState.jobs) {
+        for (let job of Object.keys(newState.jobs)) {
+          // For each job in state.jobs, find all steps in state.steps that have that jobKey
+          // Remove the step.jobKey property and assign to job.
+          newState.jobs[job].steps = state.steps
+            .filter((step) => step.jobKey === job)
+            .map(({ jobKey, ...step }) => step);
+        }
+      }
+      return {
+        ...newState,
+      };
     });
   },
 });

@@ -1,5 +1,5 @@
 import { useWorkflowStore } from "@stores/workflow/WorkflowStore";
-import { FormEventHandler } from "react";
+import { FormEventHandler, useState } from "react";
 import { IndividualStep } from "./IndividualStep";
 import styles from "./StepsEditor.module.css";
 
@@ -9,9 +9,14 @@ interface Props {
 
 export const StepsEditor = ({ jobKey }: Props) => {
   const store = useWorkflowStore();
+  const [stepName, setStepName] = useState("");
 
   const handleNewStep: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
+    if (stepName.length > 0) {
+      store.createStep(jobKey, stepName);
+      setStepName("");
+    }
   };
 
   return (
@@ -22,15 +27,23 @@ export const StepsEditor = ({ jobKey }: Props) => {
           type="text"
           className={styles.inputText}
           placeholder="Step Name"
+          value={stepName}
+          onChange={(e) => setStepName(e.target.value)}
         />
         <button type="submit" className={styles.inputSubmit}>
           Add Step
         </button>
       </form>
-      <div>
+      <div className={styles.steps}>
         {typeof store?.jobs?.[jobKey]?.steps !== "undefined" &&
           store.jobs[jobKey].steps?.map((step) => {
-            return <IndividualStep key={step.name} stepName={step.name} />;
+            return (
+              <IndividualStep
+                key={step.name}
+                jobKey={jobKey}
+                stepName={step.name}
+              />
+            );
           })}
       </div>
     </div>

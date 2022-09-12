@@ -87,7 +87,7 @@ export type Step = {
   name: string;
   uses?: CommonActions | string;
   with?: Record<WithKeys | string, string>;
-  run: string;
+  run?: string;
   env?: Record<string, string>;
   "continue-on-error"?: boolean;
   "timeout-minutes"?: number;

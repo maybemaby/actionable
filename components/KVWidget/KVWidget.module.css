@@ -1,0 +1,26 @@
+.container {
+  border-radius: 5px;
+  font-size: var(--base-font-size);
+  display: grid;
+  width: 100%;
+  margin: auto;
+  grid-template-columns: 1fr 1fr;
+  background-color: var(--color-on-bg);
+  color: var(--color-on-bg-text);
+}
+
+.header {
+  width: 100%;
+}
+
+.item {
+  display: grid;
+  place-items: center;
+  padding: 10px;
+  border: 1px solid var(--black-base)
+}
+
+.completed::placeholder {
+  color: var(--color-on-bg-text);
+  opacity: 1;
+}
