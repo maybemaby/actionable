@@ -1,4 +1,4 @@
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useMemo, useState, useId } from "react";
 import { Job } from "@lib/types/workflow";
 import { useWorkflowStore } from "@stores/workflow/WorkflowStore";
 import { useEffect } from "react";
@@ -20,8 +20,6 @@ export const JobsField = () => {
     }
   };
 
-  let id = 0;
-
   return (
     <section className={styles.field}>
       <h3 className={styles.header}>Jobs</h3>
@@ -41,12 +39,15 @@ export const JobsField = () => {
       <ul className={styles.jobs}>
         {store.jobs &&
           jobKeys &&
-          jobKeys.map((key) => (
-            <li key={`${key}-${id++}`}>
-              {store.jobs && store.jobs[key] && (
-                <JobEditor job={store.jobs[key]} keyName={key} />
-              )}
-            </li>
+          jobKeys.map((key, idx) => (
+            <>
+              <li key={`${key}-${idx}`}>
+                {store.jobs && store.jobs[key] && (
+                  <JobEditor job={store.jobs[key]} keyName={key} />
+                )}
+              </li>
+              <hr />
+            </>
           ))}
       </ul>
     </section>

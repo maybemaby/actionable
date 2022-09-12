@@ -35,7 +35,7 @@
 }
 
 .inputSubmit {
-  background: var(--color-primary-hover);
+  background: var(--color-primary);
   border: none;
   flex-basis: 1;
   flex-grow: 2;
@@ -45,7 +45,7 @@
 }
 
 .inputSubmit:hover {
-  background: var(--color-primary);
+  background: var(--color-primary-hover);
 }
 
 .steps {

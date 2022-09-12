@@ -11,7 +11,8 @@ export type StepSlice = {
   createStep: (jobName: string, stepName: string) => void;
   removeStep: (jobName: string, stepName: string) => void;
   changeUses: (jobName: string, stepName: string, uses: string) => void;
-  changeRun: (jobName: string, stepName: string, uses: string) => void;
+  changeRun: (jobName: string, stepName: string, run: string) => void;
+  changeWith: (jobName: string, stepName: string, values: Step["with"]) => void;
   setStepSimpleKv: (
     jobName: string,
     stepName: string,
@@ -39,9 +40,23 @@ export const createStepSlice: StateCreator<
   removeStep(jobName, stepName) {
     set((state) => {
       const newSteps = state.steps.filter(
-        (step) => step.name !== stepName && step.jobKey !== jobName
+        (step) => step.name !== stepName || step.jobKey !== jobName
       );
 
+      return {
+        ...state,
+        steps: newSteps,
+      };
+    });
+  },
+  changeWith(jobName, stepName, values) {
+    set((state) => {
+      const newSteps = state.steps.map((step) => {
+        if (step.name != stepName || step.jobKey != jobName) {
+          return step;
+        }
+        return { ...step, with: values };
+      });
       return {
         ...state,
         steps: newSteps,
