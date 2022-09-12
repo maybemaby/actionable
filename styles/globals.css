@@ -109,6 +109,18 @@ a {
   box-sizing: border-box;
 }
 
+p.intro {
+  font-size: var(--base-subtitle-size);
+  margin: 50px auto;
+  width: fit-content;
+}
+
+p.intro a {
+  text-decoration: underline;
+  font-weight: 500;
+  color: var(--color-primary);
+}
+
 button:hover {
   cursor: pointer;
 }

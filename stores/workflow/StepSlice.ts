@@ -22,7 +22,7 @@ export type StepSlice = {
 
 export const createStepSlice: StateCreator<
   WorkflowSlices,
-  [],
+  [["zustand/persist", unknown]],
   [],
   StepSlice
 > = (set, get) => ({

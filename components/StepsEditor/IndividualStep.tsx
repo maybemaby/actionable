@@ -21,7 +21,9 @@ export const IndividualStep = ({ stepName, jobKey }: Props) => {
     <div className={styles.container}>
       <div className={styles.header}>{stepName}</div>
       <div className={styles.twoCol}>
-        <label>Pre-existing workflow to use (Optional)</label>
+        <div className={styles.label}>
+          Pre-existing workflow to use (Optional)
+        </div>
         <input
           type="text"
           value={step?.uses ?? ""}
@@ -30,7 +32,7 @@ export const IndividualStep = ({ stepName, jobKey }: Props) => {
         ></input>
       </div>
       <div className={styles.twoCol}>
-        <label>Run Command (Optional)</label>
+        <div className={styles.label}>Run Command (Optional)</div>
         <input
           type="text"
           value={step?.run ?? ""}

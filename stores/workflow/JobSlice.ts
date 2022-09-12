@@ -17,7 +17,7 @@ export type JobsSlice = {
 
 export const createJobsSlice: StateCreator<
   WorkflowSlices,
-  [],
+  [["zustand/persist", unknown]],
   [],
   JobsSlice
 > = (set) => ({

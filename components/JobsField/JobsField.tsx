@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useMemo, useState } from "react";
 import { Job } from "@lib/types/workflow";
 import { useWorkflowStore } from "@stores/workflow/WorkflowStore";
 import { useEffect } from "react";
@@ -8,24 +8,19 @@ import styles from "./JobsField.module.css";
 export const JobsField = () => {
   const store = useWorkflowStore();
   const [newInput, setNewInput] = useState("");
-  const [jobKeys, setJobKeys] = useState<string[]>([]);
-  const [jobs, setJobs] = useState<Job[]>([]);
+  const jobKeys = useMemo(() => {
+    return Object.keys(store.jobs ?? {});
+  }, [store.jobs]);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (newInput.length > 0) {
-      setJobKeys([...jobKeys, newInput]);
       setNewInput("");
+      store.updateJobKeys([...jobKeys, newInput.trim()]);
     }
   };
 
-  useEffect(() => {
-    store.updateJobKeys(jobKeys);
-  }, [jobKeys]);
-
-  useEffect(() => {
-    if (store.jobs) setJobKeys(Object.keys(store.jobs));
-  }, [store.jobs]);
+  let id = 0;
 
   return (
     <section className={styles.field}>
@@ -45,8 +40,9 @@ export const JobsField = () => {
 
       <ul className={styles.jobs}>
         {store.jobs &&
+          jobKeys &&
           jobKeys.map((key) => (
-            <li key={key}>
+            <li key={`${key}-${id++}`}>
               {store.jobs && store.jobs[key] && (
                 <JobEditor job={store.jobs[key]} keyName={key} />
               )}

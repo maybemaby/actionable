@@ -14,9 +14,12 @@ export type OnSlice = {
   setTypes: (event: TriggerEvent, eventTypes: string[]) => void;
 };
 
-export const createOnSlice: StateCreator<WorkflowSlices, [], [], OnSlice> = (
-  set
-) => ({
+export const createOnSlice: StateCreator<
+  WorkflowSlices,
+  [["zustand/persist", unknown]],
+  [],
+  OnSlice
+> = (set) => ({
   onEventArray(events) {
     set((state) => {
       const update: { [key in TriggerEvent]?: TriggerConditions | null } = {};
