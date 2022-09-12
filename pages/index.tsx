@@ -4,6 +4,7 @@ import { useWorkflowStore } from "@stores/workflow/WorkflowStore";
 import { OnField } from "@components/OnField/OnField";
 import { useState } from "react";
 import dynamic from "next/dynamic";
+import { useHasHydrated } from "@hooks/useHasHydrated";
 
 // Doesn't really have a performance benefit, but kept getting
 // UI/Server mismatch errors
@@ -31,6 +32,8 @@ const Home: NextPage = () => {
     updated[key] = true;
     setTouched(updated);
   };
+
+  const hasHydrated = useHasHydrated();
 
   return (
     <div>
@@ -65,7 +68,8 @@ const Home: NextPage = () => {
           onChangeCapture={() => touchField("name")}
         />
       </section>
-      {touched.name && store.name !== null && <OnField />}
+      {(hasHydrated && touched.name && <OnField />) ||
+        (hasHydrated && store.name !== null && <OnField />)}
       {touched.on && <DynamicJobsField />}
     </div>
   );
