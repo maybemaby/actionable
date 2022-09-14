@@ -5,33 +5,37 @@ import styles from "./EventFilter.module.css";
 import { SelectOption } from "./OnField";
 import { MdExpandMore } from "react-icons/md";
 import { useWorkflowStore } from "@stores/workflow/WorkflowStore";
-import { useEffect } from "react";
 
 interface EventFilterProps {
   selectedEvents: SelectOption[];
 }
 
 export const EventFilter = ({ selectedEvents }: EventFilterProps) => {
-  const [chosen, setChosen] = useState<SelectOption>(selectedEvents[0]);
+  const [chosen, setChosen] = useState<SelectOption | null>(
+    selectedEvents[0] ?? null
+  );
   const [selectedTypes, setSelectedTypes] = useState<SelectOption["types"]>([]);
   const [selectedFilters, setSelectedFilters] = useState<
     SelectOption["filters"]
   >([]);
 
-  const store = useWorkflowStore();
+  const { on, setTypes } = useWorkflowStore();
 
-  useEffect(() => {
+  const handleChange = (change: SelectOption) => {
+    setChosen(change);
     setSelectedTypes([]);
-    if (store.on?.[chosen.value]) {
-      setSelectedTypes(store.on[chosen.value]?.types);
+    if (chosen && on?.[change.value]) {
+      console.log("test", on?.[change.value]);
+      setSelectedTypes(on[change.value]?.types);
     }
-  }, [chosen.value, store.on]);
+  };
 
-  useEffect(() => {
-    if (selectedTypes) {
-      store.setTypes(chosen.value, selectedTypes);
+  const handleTypesChange = (change: SelectOption["types"]) => {
+    setSelectedTypes(change);
+    if (chosen && change && selectedTypes && selectedTypes.length > 0) {
+      setTypes(chosen.value, change);
     }
-  }, [selectedTypes, chosen.value]);
+  };
 
   return (
     <div className={styles.container}>
@@ -40,12 +44,12 @@ export const EventFilter = ({ selectedEvents }: EventFilterProps) => {
         <strong className={styles.columnLabel}>Event</strong>
         <Listbox
           value={chosen}
-          onChange={setChosen}
+          onChange={handleChange}
           as={"div"}
           className={"combobox pop-in"}
         >
           <Listbox.Button className={`listbox-input ${styles.colInput}`}>
-            {chosen.label}
+            {chosen && chosen.label}
             <MdExpandMore size={30} />
           </Listbox.Button>
           <Listbox.Options className={"combobox-options"}>
@@ -70,12 +74,12 @@ export const EventFilter = ({ selectedEvents }: EventFilterProps) => {
       </span>
 
       {/* If chosen event has available types to add, show a selector */}
-      {chosen.types && (
+      {chosen && chosen.types && (
         <span className={styles.columnItem}>
           <strong className={styles.columnLabel}>Types</strong>
           <Listbox
             value={selectedTypes}
-            onChange={setSelectedTypes}
+            onChange={handleTypesChange}
             as={"div"}
             className={"combobox pop-in"}
             multiple
@@ -107,7 +111,7 @@ export const EventFilter = ({ selectedEvents }: EventFilterProps) => {
       )}
 
       {/* Show selector for filters if it has any */}
-      {chosen.filters && (
+      {chosen && chosen.filters && (
         <span className={styles.columnItem}>
           <strong className={styles.columnLabel}>Filters</strong>
           <Listbox

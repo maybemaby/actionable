@@ -21,7 +21,7 @@ interface FieldsTouched {
 }
 
 const Home: NextPage = () => {
-  const store = useWorkflowStore();
+  const { name, changeName } = useWorkflowStore();
   const [touched, setTouched] = useState<FieldsTouched>({
     name: false,
     on: true,
@@ -63,13 +63,13 @@ const Home: NextPage = () => {
           id="name"
           type="text"
           placeholder="Enter a name for your workflow"
-          value={store.name ?? ""}
-          onChange={(e) => store.changeName(e.currentTarget.value)}
+          value={name ?? ""}
+          onChange={(e) => changeName(e.currentTarget.value)}
           onChangeCapture={() => touchField("name")}
         />
       </section>
       {(hasHydrated && touched.name && <OnField />) ||
-        (hasHydrated && store.name !== null && <OnField />)}
+        (hasHydrated && name !== null && <OnField />)}
       {touched.on && <DynamicJobsField />}
     </div>
   );

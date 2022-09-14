@@ -1,4 +1,4 @@
-import { FormEvent, useMemo, useState, useId } from "react";
+import { FormEvent, useMemo, useState, useId, Fragment } from "react";
 import { Job } from "@lib/types/workflow";
 import { useWorkflowStore } from "@stores/workflow/WorkflowStore";
 import { useEffect } from "react";
@@ -6,17 +6,17 @@ import { JobEditor } from "@components/JobEditor/JobEditor";
 import styles from "./JobsField.module.css";
 
 export const JobsField = () => {
-  const store = useWorkflowStore();
+  const { jobs, updateJobKeys } = useWorkflowStore();
   const [newInput, setNewInput] = useState("");
   const jobKeys = useMemo(() => {
-    return Object.keys(store.jobs ?? {});
-  }, [store.jobs]);
+    return Object.keys(jobs ?? {});
+  }, [jobs]);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (newInput.length > 0) {
       setNewInput("");
-      store.updateJobKeys([...jobKeys, newInput.trim()]);
+      updateJobKeys([...jobKeys, newInput.trim()]);
     }
   };
 
@@ -37,17 +37,17 @@ export const JobsField = () => {
       </form>
 
       <ul className={styles.jobs}>
-        {store.jobs &&
+        {jobs &&
           jobKeys &&
           jobKeys.map((key, idx) => (
-            <>
-              <li key={`${key}-${idx}`}>
-                {store.jobs && store.jobs[key] && (
-                  <JobEditor job={store.jobs[key]} keyName={key} />
+            <Fragment key={`${key}-${idx}`}>
+              <li>
+                {jobs && jobs[key] && (
+                  <JobEditor job={jobs[key]} keyName={key} />
                 )}
               </li>
               <hr />
-            </>
+            </Fragment>
           ))}
       </ul>
     </section>
