@@ -17,10 +17,19 @@
   display: grid;
   place-items: center;
   padding: 10px;
-  border: 1px solid var(--black-base)
+  border: 1px solid var(--black-base);
+  width: 100%;
+}
+
+.item:focus-within {
+  outline: none;
 }
 
 .completed::placeholder {
   color: var(--color-on-bg-text);
   opacity: 1;
+}
+
+.completed:focus-within::placeholder {
+  color: var(--grey-500);
 }

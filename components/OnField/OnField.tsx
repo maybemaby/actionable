@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useMemo } from "react";
+import { Fragment, useMemo } from "react";
 import { Combobox } from "@headlessui/react";
 import { MdExpandMore } from "react-icons/md";
 import { BsCheck } from "react-icons/bs";
@@ -7,6 +7,7 @@ import { useWorkflowStore } from "@stores/workflow/WorkflowStore";
 import { useState } from "react";
 import styles from "./OnField.module.css";
 import { EventFilter } from "./EventFilter";
+import { useHasHydrated } from "@hooks/useHasHydrated";
 
 export interface SelectOption {
   label: string;
@@ -123,8 +124,27 @@ const options: SelectOption[] = [
 ];
 
 export const OnField = () => {
-  const store = useWorkflowStore();
-  const [selected, setSelected] = useState<SelectOption[]>([]);
+  const hasHydrated = useHasHydrated();
+  const { onEventArray, clearTriggers, on } = useWorkflowStore();
+  const onEvents = useMemo(() => {
+    if (!on) {
+      return [];
+    }
+    return Object.keys(on);
+  }, [on]);
+  const [selected, setSelected] = useState<SelectOption[]>(() => {
+    if (!on || Object.keys(on).length <= 0) {
+      return [];
+    }
+    const selections = [];
+    for (let key of Object.keys(on)) {
+      const opt = options.find((o) => o.value === key);
+      if (opt) {
+        selections.push(opt);
+      }
+    }
+    return selections;
+  });
   const [query, setQuery] = useState("");
   const filteredOptions = useMemo(() => {
     return query === ""
@@ -134,19 +154,21 @@ export const OnField = () => {
         );
   }, [query]);
 
-  useEffect(() => {
-    if (selected.length > 0) {
-      store.onEventArray(selected.map((v) => v.value));
-    } else {
-      store.clearTriggers();
+  const handleUpdate = (update: SelectOption[]) => {
+    if (update.length > 0) {
+      onEventArray(update.map((o) => o.value));
+      setSelected(update);
+    } else if (hasHydrated && update.length === 0) {
+      setSelected(update);
+      clearTriggers();
     }
-  }, [selected]);
+  };
 
   return (
     <>
       <Combobox
         value={selected}
-        onChange={setSelected}
+        onChange={handleUpdate}
         multiple
         as={"div"}
         className={`${styles.container} combobox pop-in`}
@@ -156,9 +178,7 @@ export const OnField = () => {
           <Combobox.Input
             className={styles.mainInput}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder={`Events: ${selected
-              .map((val) => val.label)
-              .join(", ")}`}
+            placeholder={`Events: ${onEvents.join(", ")}`}
           />
           <Combobox.Button>
             <MdExpandMore size={25} />
@@ -184,7 +204,7 @@ export const OnField = () => {
         </Combobox.Options>
       </Combobox>
 
-      {selected.length > 0 && (
+      {onEvents.length > 0 && (
         <section>
           <h3>Event Filtering</h3>
           <EventFilter selectedEvents={selected} />
