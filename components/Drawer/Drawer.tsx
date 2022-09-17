@@ -32,10 +32,7 @@ export const Drawer = ({
     <Popover>
       {({ open }) => (
         <>
-          <Popover.Button
-            className={styles.openBtn}
-            data-label={buttonLabel ?? "Open"}
-          >
+          <Popover.Button className={styles.openBtn} data-label={buttonLabel}>
             {buttonAs ?? <GiHamburgerMenu size={30} />}
           </Popover.Button>
           {open && (

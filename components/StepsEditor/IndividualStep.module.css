@@ -60,8 +60,9 @@
   transition: all 200ms ease;
 }
 
-.fillBtn:hover, .fillBtn:focus-within {
+.fillBtn:hover, .fillBtn:focus-within, .fillBtn:focus {
   background-color: var(--color-primary-hover);
+  outline: none;
 }
 
 .kvWidget {
