@@ -116,6 +116,10 @@ a {
 * {
   box-sizing: border-box;
 }
+code {
+  padding: 1px 3px;
+  background-color: var(--modal-bg);
+}
 
 p.intro {
   font-size: var(--base-subtitle-size);

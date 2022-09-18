@@ -1,16 +1,28 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useMemo } from "react";
 import { Listbox } from "@headlessui/react";
 import { BsCheck } from "react-icons/bs";
 import styles from "./EventFilter.module.css";
-import { SelectOption } from "./OnField";
+import { SelectOption } from "@lib/constants";
 import { MdExpandMore } from "react-icons/md";
 import { useWorkflowStore } from "@stores/workflow/WorkflowStore";
+import { triggerOptions } from "@lib/constants";
 
-interface EventFilterProps {
-  selectedEvents: SelectOption[];
-}
+export const EventFilter = () => {
+  const { on, setTypes } = useWorkflowStore();
 
-export const EventFilter = ({ selectedEvents }: EventFilterProps) => {
+  const selectedEvents = useMemo<SelectOption[]>(() => {
+    if (!on || Object.keys(on).length <= 0) {
+      return [];
+    }
+    const selections = [];
+    for (let key of Object.keys(on)) {
+      const opt = triggerOptions.find((o) => o.value === key);
+      if (opt) {
+        selections.push(opt);
+      }
+    }
+    return selections;
+  }, [on]);
   const [chosen, setChosen] = useState<SelectOption | null>(
     selectedEvents[0] ?? null
   );
@@ -18,8 +30,6 @@ export const EventFilter = ({ selectedEvents }: EventFilterProps) => {
   const [selectedFilters, setSelectedFilters] = useState<
     SelectOption["filters"]
   >([]);
-
-  const { on, setTypes } = useWorkflowStore();
 
   const handleChange = (change: SelectOption) => {
     setChosen(change);

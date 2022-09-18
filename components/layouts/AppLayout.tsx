@@ -41,11 +41,11 @@ export const AppLayout = ({ children }: { children: React.ReactNode }) => {
       </Head>
 
       <header className={`${styles.appbar} ${styles.page}`}>
-        <span className="row">
+        <span className={`row ${styles.appbarLeft}`}>
           <BiGitMerge size={35} />
           <h1>Actionable</h1>
         </span>
-        <span className="row" style={{ gap: "40px" }}>
+        <span className={`row ${styles.appbarRight}`}>
           {router.route.includes("tutorial") ? (
             <Link href="/">
               <a className="btn-primary">Back to Form</a>

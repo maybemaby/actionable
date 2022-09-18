@@ -10,6 +10,21 @@
   justify-content: space-between;
 }
 
+.appbarRight {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: flex-end;
+}
+
+.appbarLeft {
+  align-self: flex-start;
+}
+
+.appbarLeft h1 {
+  font-size: var(--base-subtitle-size);
+}
+
 .preview {
   padding: 20px 10px;
   max-width: 300px;
@@ -20,5 +35,18 @@
   .preview {
   padding: 20px 80px;
   max-width: 600px;
+  }
+  
+  .appbarRight {
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  .appbarLeft {
+    align-self: center;
+  }
+
+  .appbarLeft h1 {
+    font-size: var(--base-headline-size);
   }
 }
