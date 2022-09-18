@@ -16,13 +16,6 @@ interface ModalStore {
   onClose(): void;
 }
 
-const ModalContext = createContext<ModalStore>({
-  open: false,
-  onClose: () => {
-    return;
-  },
-});
-
 export const Modal = ({
   open,
   onClose,
