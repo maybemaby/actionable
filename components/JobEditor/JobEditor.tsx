@@ -7,8 +7,8 @@ import { ContinueOnErr } from "@components/OnField/ContinueOnErr";
 import { TimeoutMinutes } from "./TimeoutMinutes";
 import { StepsEditor } from "@components/StepsEditor/StepsEditor";
 
-export const JobEditor = ({ job, keyName }: { job: Job; keyName: string }) => {
-  const store = useWorkflowStore();
+export const JobEditor = ({ keyName }: { job: Job; keyName: string }) => {
+  const { removeJob } = useWorkflowStore();
 
   return (
     <div className={styles.container}>
@@ -16,7 +16,7 @@ export const JobEditor = ({ job, keyName }: { job: Job; keyName: string }) => {
         <strong className={styles.keyname}>{keyName}</strong>
         <button
           className={`icon-btn ${styles.deleteBtn}`}
-          onClick={() => store.removeJob(keyName)}
+          onClick={() => removeJob(keyName)}
         >
           <MdDelete size={25} />
           Delete
