@@ -13,6 +13,11 @@ interface PortalProps {
   lockBodyScroll?: boolean;
 }
 
+/** Portal will render children components to specified target which can be either
+ * a HTMLElement or string to use in querySelector.
+ * If no target is provided, a div will be mounted to the end of the document body.
+ * The className is applied to a div which is mounted inside the target element.
+ */
 export const Portal = ({
   children,
   target,

@@ -12,6 +12,13 @@ interface Props {
   onChange?(events: SelectOption[]): void;
 }
 
+/**
+ * TriggerSelect is a combobox component that allows user
+ * to choose from events specified in constant triggerOptions.
+ * State is synced with the global workflow store in the OnSlice.
+ */
+// Future consideration: Pass state in through props so the component is not as tightly tied to global state.
+// Not much reason to use component outside of global state so maybe not necessary however.
 export const TriggerSelect = ({ onChange }: Props) => {
   const hasHydrated = useHasHydrated();
   const { on, onEventArray, clearTriggers } = useWorkflowStore();
@@ -28,13 +35,18 @@ export const TriggerSelect = ({ onChange }: Props) => {
     }
     return selections;
   });
+
+  // Selected events by name
   const onEvents = useMemo(() => {
     if (!on) {
       return [];
     }
     return Object.keys(on);
   }, [on]);
+
+  // Combobox query state
   const [query, setQuery] = useState("");
+
   const filteredOptions = useMemo(() => {
     return query === ""
       ? triggerOptions
