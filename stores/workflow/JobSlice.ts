@@ -9,6 +9,7 @@ export type JobsSlice = {
   updateJobKeys: (names: string[]) => void;
   setJobValue: (name: string, key: SimpleKeyValues, value: string) => void;
   removeJob: (name: string) => void;
+  setUses: (name: string, value?: string) => void;
   setRunsOn: (name: string, selection: RunsOnOptions[] | RunsOnOptions) => void;
   setContinueOnErr: (name: string, value: boolean) => void;
   setTimeoutMinutes: (name: string, value?: number) => void;
@@ -48,6 +49,25 @@ export const createJobsSlice: StateCreator<
       return {
         ...state,
         jobs: newJobs,
+      };
+    });
+  },
+  setUses(name, value) {
+    set((state) => {
+      if (state.jobs?.[name]) {
+        return {
+          ...state,
+          jobs: {
+            ...state.jobs,
+            [name]: {
+              ...state.jobs[name],
+              uses: value,
+            },
+          },
+        };
+      }
+      return {
+        ...state,
       };
     });
   },

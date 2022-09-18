@@ -47,6 +47,23 @@
   margin: var(--sp-6) 0;
 }
 
+.uses {
+  font-size: 1.1rem;
+  padding-bottom: 10px;
+}
+
+.uses label {
+  font-size: inherit;
+  flex-grow: 0;
+  width: 100px;
+}
+
+.uses input {
+  font-size: inherit;
+  width: 100%;
+  flex-grow: 2;
+}
+
 @media screen and (max-width: 768px) {
   .container .forceCol {
     flex-direction: column;

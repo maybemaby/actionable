@@ -6,6 +6,7 @@ import styles from "./JobEditor.module.css";
 import { ContinueOnErr } from "@components/OnField/ContinueOnErr";
 import { TimeoutMinutes } from "./TimeoutMinutes";
 import { StepsEditor } from "@components/StepsEditor/StepsEditor";
+import { JobUses } from "./JobUses";
 
 export const JobEditor = ({ keyName }: { job: Job; keyName: string }) => {
   const { removeJob } = useWorkflowStore();
@@ -28,6 +29,7 @@ export const JobEditor = ({ keyName }: { job: Job; keyName: string }) => {
           <TimeoutMinutes keyName={keyName} />
         </div>
         <RunsOn className={styles.py6} keyName={keyName} />
+        <JobUses jobKey={keyName} />
         <StepsEditor jobKey={keyName} />
       </div>
     </div>
