@@ -58,7 +58,10 @@ export const EventFilter = () => {
           as={"div"}
           className={"combobox pop-in"}
         >
-          <Listbox.Button className={`listbox-input ${styles.colInput}`}>
+          <Listbox.Button
+            name="event-filter-select"
+            className={`listbox-input ${styles.colInput}`}
+          >
             {chosen && chosen.label}
             <MdExpandMore size={30} />
           </Listbox.Button>

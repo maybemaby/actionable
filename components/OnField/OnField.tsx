@@ -17,7 +17,7 @@ export const OnField = () => {
       <TriggerSelect />
 
       {onEvents.length > 0 && (
-        <section>
+        <section id="event-filter">
           <h3>Event Filtering</h3>
           <EventFilter />
         </section>

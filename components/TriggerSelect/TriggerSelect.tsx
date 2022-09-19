@@ -77,6 +77,7 @@ export const TriggerSelect = ({ onChange }: Props) => {
       <Combobox.Label>What events will trigger the workflow?</Combobox.Label>
       <div className={`combobox-input`}>
         <Combobox.Input
+          name="events"
           className={styles.mainInput}
           onChange={(e) => setQuery(e.target.value)}
           placeholder={`Events: ${onEvents.join(", ")}`}

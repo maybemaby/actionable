@@ -46,7 +46,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <section>
+      <section id="workflow-intro">
         <p className="intro">
           Generate workflows for Github&#39;s CI/CD platform{" "}
           <a
@@ -61,6 +61,7 @@ const Home: NextPage = () => {
         <label htmlFor="name">Workflow Name</label>
         <input
           id="name"
+          name="workflow-name"
           type="text"
           placeholder="Enter a name for your workflow"
           value={name ?? ""}
