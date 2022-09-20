@@ -50,6 +50,10 @@
 .uses {
   font-size: 1.1rem;
   padding-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
 }
 
 .uses label {

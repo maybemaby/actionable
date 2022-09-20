@@ -10,6 +10,8 @@ export type JobsSlice = {
   setJobValue: (name: string, key: SimpleKeyValues, value: string) => void;
   removeJob: (name: string) => void;
   setUses: (name: string, value?: string) => void;
+  setWith: (name: string, kv: Record<string, string>) => void;
+  getWith: (name: string) => Record<string, string> | undefined;
   setRunsOn: (name: string, selection: RunsOnOptions[] | RunsOnOptions) => void;
   setContinueOnErr: (name: string, value: boolean) => void;
   setTimeoutMinutes: (name: string, value?: number) => void;
@@ -21,7 +23,7 @@ export const createJobsSlice: StateCreator<
   [["zustand/persist", unknown]],
   [],
   JobsSlice
-> = (set) => ({
+> = (set, get) => ({
   // adds new keys on top of existing keys
   updateJobKeys(names) {
     set((state) => {
@@ -70,6 +72,26 @@ export const createJobsSlice: StateCreator<
         ...state,
       };
     });
+  },
+  setWith(name: string, kv: Record<string, string>) {
+    set((state) => {
+      if (state.jobs?.[name]) {
+        return {
+          ...state,
+          jobs: {
+            ...state.jobs,
+            [name]: {
+              ...state.jobs[name],
+              with: kv,
+            },
+          },
+        };
+      }
+      return { ...state };
+    });
+  },
+  getWith(name) {
+    return get().jobs?.[name].with;
   },
   // For keys within state.jobs that only require a simple key e.g name and id
   setJobValue(name, key, value) {

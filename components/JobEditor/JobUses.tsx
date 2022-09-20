@@ -7,9 +7,10 @@ export const JobUses = ({ jobKey }: { jobKey: string }) => {
   const [value, setValue] = useState("");
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-    if (e.target.value.length > 0) {
-      setUses(jobKey, value);
+    const input = e.target.value;
+    setValue(input);
+    if (input.length > 0) {
+      setUses(jobKey, input);
     } else {
       setUses(jobKey, undefined);
     }
@@ -17,7 +18,7 @@ export const JobUses = ({ jobKey }: { jobKey: string }) => {
 
   return (
     <div className={`row ${styles.uses}`}>
-      <label htmlFor={`${jobKey}-uses`}>Job Uses</label>
+      <label htmlFor={`${jobKey}-uses`}>Job Uses:</label>
       <input
         id={`${jobKey}-uses`}
         type="text"
