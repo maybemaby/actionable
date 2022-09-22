@@ -9,9 +9,6 @@
   color: var(--color-on-bg-text);
 }
 
-.header {
-  width: 100%;
-}
 
 .item {
   display: grid;
@@ -19,6 +16,10 @@
   padding: 10px;
   border: 1px solid var(--black-base);
   width: 100%;
+}
+
+.header {
+  border: none;
 }
 
 .item:focus-within {

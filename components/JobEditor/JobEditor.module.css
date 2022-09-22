@@ -58,8 +58,7 @@
 
 .uses label {
   font-size: inherit;
-  flex-grow: 0;
-  width: 100px;
+  width: 200px;
 }
 
 .uses input {
@@ -69,6 +68,10 @@
 }
 
 @media screen and (max-width: 768px) {
+  .uses {
+    font-size: 1rem;
+  }
+
   .container .forceCol {
     flex-direction: column;
   }

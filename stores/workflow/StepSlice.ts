@@ -13,6 +13,7 @@ export type StepSlice = {
   changeUses: (jobName: string, stepName: string, uses: string) => void;
   changeRun: (jobName: string, stepName: string, run: string) => void;
   changeWith: (jobName: string, stepName: string, values: Step["with"]) => void;
+  changeEnv: (jobName: string, stepName: string, values: Step["env"]) => void;
   setStepSimpleKv: (
     jobName: string,
     stepName: string,
@@ -62,6 +63,20 @@ export const createStepSlice: StateCreator<
         steps: newSteps,
       };
     });
+  },
+  changeEnv(jobName, stepName, values) {
+      set((state) => {
+        const newSteps = state.steps.map((step) => {
+          if (step.name != stepName || step.jobKey != jobName) {
+            return step;
+          }
+        return { ...step, env: values };
+        });
+        return {
+          ...state,
+          steps: newSteps
+      }
+      })
   },
   changeUses(jobName, stepName, uses) {
     get().setStepSimpleKv(jobName, stepName, "uses", uses);

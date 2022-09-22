@@ -9,7 +9,7 @@
 .header {
   padding: 7px 20px;
   font-size: 1.2rem;
-  border-bottom: 2px solid var(--color-primary);
+  border-bottom: 1px solid var(--color-primary);
 }
 
 .inputRow {
@@ -25,9 +25,10 @@
   border-radius: 0px;
   padding: 7px 20px;
   margin: 0;
-  outline: none;
+  outline: 2px inset var(--color-primary);
+  outline-offset: -1px;
   font-size: var(--base-font-size);
-  box-shadow: inset 0px 0px 5px var(--color-primary-hover);
+  /* box-shadow: inset 0px 0px 5px var(--color-primary-hover); */
 }
 
 .inputText[type="text"]:focus-within {

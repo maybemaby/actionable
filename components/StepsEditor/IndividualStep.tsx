@@ -11,7 +11,7 @@ interface Props {
 
 export const IndividualStep = ({ stepName, jobKey }: Props) => {
   const [withModalOpen, setWithModalOpen] = useState(false);
-
+  const [envModalOpen, setEnvModalOpen] = useState(false);
   const store = useWorkflowStore();
 
   const initWith = useMemo(() => {
@@ -19,6 +19,13 @@ export const IndividualStep = ({ stepName, jobKey }: Props) => {
       (step) => step.name === stepName && step.jobKey === jobKey
     );
     return step?.with;
+  }, [jobKey, stepName, store.steps]);
+
+  const initEnv = useMemo(() => {
+    const step = store.steps.find(
+      (step) => step.name === stepName && step.jobKey === jobKey
+    );
+    return step?.env;
   }, [jobKey, stepName, store.steps]);
 
   const step = store.steps.find(
@@ -29,8 +36,12 @@ export const IndividualStep = ({ stepName, jobKey }: Props) => {
     store.removeStep(jobKey, stepName);
   };
 
-  const onKvUpdate = (kv: Record<string, string>) => {
+  const onWithUpdate = (kv: Record<string, string>) => {
     store.changeWith(jobKey, stepName, kv);
+  };
+
+  const onEnvUpdate = (kv: Record<string, string>) => {
+    store.changeEnv(jobKey, stepName, kv);
   };
 
   return (
@@ -62,7 +73,7 @@ export const IndividualStep = ({ stepName, jobKey }: Props) => {
         ></input>
       </div>
       <div className={styles.twoCol}>
-        <div className={styles.label}>With variables:</div>
+        <div className={styles.label}>With inputs:</div>
         <button
           className={styles.fillBtn}
           onClick={() => setWithModalOpen(true)}
@@ -75,7 +86,25 @@ export const IndividualStep = ({ stepName, jobKey }: Props) => {
           onClose={() => setWithModalOpen(false)}
         >
           <div className={styles.kvWidget}>
-            <KVWidget onChange={onKvUpdate} initial={initWith} />
+            <KVWidget onChange={onWithUpdate} initial={initWith} />
+          </div>
+        </Modal>
+      </div>
+      <div className={styles.twoCol}>
+        <div className={styles.label}>Env variables:</div>
+        <button
+          className={styles.fillBtn}
+          onClick={() => setEnvModalOpen(true)}
+        >
+          Set
+        </button>
+        <Modal
+          title={`${jobKey} - ${stepName}: with`}
+          open={envModalOpen}
+          onClose={() => setEnvModalOpen(false)}
+        >
+          <div className={styles.kvWidget}>
+            <KVWidget onChange={onEnvUpdate} initial={initEnv} />
           </div>
         </Modal>
       </div>

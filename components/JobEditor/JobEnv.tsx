@@ -20,7 +20,7 @@ export const JobEnv = ({ keyName }: { keyName: string }) => {
           <KVWidget onChange={(kv) => setEnv(keyName, kv)} />
         )}
       </Modal>
-      <label htmlFor="job-env">Environment Variables</label>
+      <label htmlFor="job-env">Environment Variables:</label>
       <button
         className="btn-primary"
         id="job-with"

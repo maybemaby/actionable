@@ -53,9 +53,9 @@
   font-size: var(--base-font-size);
   color: var(--color-on-primary);
   width: 100%;
-  height: 100%;
+  height: 95%;
   border-radius: 0;
-  border: none;
+  border: 2px solid var(--grey-700);
   background-color: var(--color-primary);
   transition: all 200ms ease;
 }

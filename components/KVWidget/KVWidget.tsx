@@ -68,8 +68,8 @@ export const KVWidget = ({ className, onChange, initial }: KVWidgetProps) => {
 
   return (
     <div className={`${styles.container} ${className}`}>
-      <div className={styles.item}>Keys</div>
-      <div className={styles.item}>Values</div>
+      <div className={`${styles.item} ${styles.header}`}>Keys</div>
+      <div className={`${styles.item} ${styles.header}`}>Values</div>
       {Object.entries(kv).map(([k, v], i) => (
         <Fragment key={`${v} ${k} ${i}`}>
           <input
