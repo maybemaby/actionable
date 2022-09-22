@@ -96,6 +96,7 @@ export type Step = {
 export type Job = {
   uses?: string;
   with?: Record<string, string>;
+  env?: Record<string, string>;
   name?: string;
   id?: string;
   "runs-on"?: RunsOnOptions[] | RunsOnOptions;
