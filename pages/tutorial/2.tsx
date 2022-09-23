@@ -13,10 +13,10 @@ const OnStep = () => {
       <div>
         <p className={styles.description}>
           Github Actions are automated processes for Github Repositories that
-          occur on certain events related to the repository.
+          occur on certain activities related to the repository.
         </p>
         <p className={styles.description}>
-          These events include git actions like <code>push</code>,{" "}
+          These activities include git actions like <code>push</code>,{" "}
           <code>pull_request</code>, and <code>fork</code>. There are also non
           version control events like issue creation, scheduled workflow runs,
           and comments.

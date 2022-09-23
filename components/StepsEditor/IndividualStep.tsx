@@ -99,7 +99,7 @@ export const IndividualStep = ({ stepName, jobKey }: Props) => {
           Set
         </button>
         <Modal
-          title={`${jobKey} - ${stepName}: with`}
+          title={`${jobKey} - ${stepName}: env`}
           open={envModalOpen}
           onClose={() => setEnvModalOpen(false)}
         >
