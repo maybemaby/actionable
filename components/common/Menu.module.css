@@ -1,0 +1,58 @@
+@keyframes open {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.menu {
+  position: relative;
+  display: inline-block;
+}
+
+.btn {
+  background: transparent;
+  color: inherit;
+  padding: 3px;
+  transition: all 200ms;
+  border-radius: 50%;
+}
+
+.btn:hover, .btn:focus-within {
+  background: rgba(103, 102, 102, 0.25);
+}
+
+.items {
+  position: absolute;
+  width: fit-content;
+  margin-top: 5px;
+  transform: translateX(-60%);
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  background: var(--color-on-bg);
+  border: 2px solid var(--black-muted);
+  animation: open 150ms ease;
+}
+
+.item {
+  padding: 10px 15px;
+  border: none;
+  background: inherit;
+}
+
+.active {
+  background-color: var(--violet-200);
+}
+
+.item:first-of-type {
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+.item:last-of-type {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}

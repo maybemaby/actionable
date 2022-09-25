@@ -1,4 +1,3 @@
-import { MdDelete } from "react-icons/md";
 import { Job } from "@lib/types/workflow";
 import { useWorkflowStore } from "@stores/workflow/WorkflowStore";
 import { RunsOn } from "./RunsOn";
@@ -9,21 +8,35 @@ import { StepsEditor } from "@components/StepsEditor/StepsEditor";
 import { JobUses } from "./JobUses";
 import { JobWith } from "./JobWith";
 import { JobEnv } from "./JobEnv";
+import { BaseMenu } from "@components/common/Menu";
+import { useMemo } from "react";
 
 export const JobEditor = ({ keyName }: { job: Job; keyName: string }) => {
   const { removeJob } = useWorkflowStore();
+
+  const menuOptions = useMemo(
+    () => [
+      { label: "Delete", value: keyName },
+      { label: "Rename", value: keyName },
+    ],
+    [keyName]
+  );
+
+  const onClick = ({ label, value }: { label: string; value: string }) => {
+    switch (label) {
+      case "Delete":
+        removeJob(value);
+        break;
+      default:
+        console.log("Invalid Selection");
+    }
+  };
 
   return (
     <div className={styles.container}>
       <div className={styles.titleBar}>
         <strong className={styles.keyname}>{keyName}</strong>
-        <button
-          className={`icon-btn ${styles.deleteBtn}`}
-          onClick={() => removeJob(keyName)}
-        >
-          <MdDelete size={25} />
-          Delete
-        </button>
+        <BaseMenu options={menuOptions} onClick={onClick} />
       </div>
       <div className={styles.editing}>
         <div className={`row gap-20 ${styles.py4} ${styles.forceCol}`}>
