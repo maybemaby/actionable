@@ -9,7 +9,8 @@ export type JobsSlice = {
   updateJobKeys: (names: string[]) => void;
   setJobValue: (name: string, key: SimpleKeyValues, value: string) => void;
   removeJob: (name: string) => void;
-  setUses: (name: string, value?: string) => void;
+  setUses: (name: string, value?: string[]) => void;
+  getUses: (name: string) => string[] | undefined;
   setWith: (name: string, kv: Record<string, string>) => void;
   getWith: (name: string) => Record<string, string> | undefined;
   getEnv: (name: string) => Record<string, string> | undefined;
@@ -74,6 +75,9 @@ export const createJobsSlice: StateCreator<
         ...state,
       };
     });
+  },
+  getUses(name) {
+      return get().jobs?.[name].uses;
   },
   setWith(name: string, kv: Record<string, string>) {
     set((state) => {

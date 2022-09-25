@@ -24,6 +24,12 @@
   --violet-400: #818cf8;
   --violet-600: #4f46e5;
 
+  --teal-300: #5eead4;
+  --teal-400: #2dd4bf;
+  --teal-500: #14b8a6;
+  --teal-600: #0d9488;
+  --teal-700: #0f766e;
+
   --sp-1: 2px;
   --sp-2: calc(var(--sp-1) * 2);
   --sp-3: calc(var(--sp-1) * 3);
@@ -38,6 +44,7 @@
   --color-on-bg-text: var(--black-base);
   --color-primary: var(--violet-600);
   --color-primary-hover: var(--violet-400);
+  --color-accent: var(--teal-400);
   --color-on-primary: var(--white-base);
   --modal-bg: var(--grey-300);
 }
@@ -62,6 +69,7 @@
       --color-text: var(--white-base);
       --color-primary: var(--violet-600);
       --color-primary-hover: var(--violet-400);
+      --color-accent: var(--teal-600);
       --color-on-primary: var(--color-text);
       --modal-bg: var(--grey-600);
   }
@@ -189,6 +197,8 @@ input[type="number"] {
   gap: 10px;
   align-items: center;
   border: none;
+  background: transparent;
+  color: inherit;
   font-size: var(--base-font-size);
 }
 

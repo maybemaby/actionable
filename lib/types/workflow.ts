@@ -94,7 +94,7 @@ export type Step = {
 };
 
 export type Job = {
-  uses?: string;
+  uses?: string[];
   with?: Record<string, string>;
   env?: Record<string, string>;
   name?: string;
